@@ -175,7 +175,7 @@ namespace Image_Gallery
             e.Graphics.DrawLine(p, new Point(0, 43), new Point(this.Width, 43));
         }
 
-
+        // Save checked images to the system
         private void ExportFile_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog saveFile = new FolderBrowserDialog();
@@ -207,6 +207,7 @@ namespace Image_Gallery
 
         }
 
+        // Loops through all the images and add it to the tile control
         private void AddTiles(List<ImageItem> imageList)
         {
             tileControl.Groups[0].Tiles.Clear();
@@ -237,6 +238,7 @@ namespace Image_Gallery
 
         private void TileControl_TileUnchecked(object sender, TileEventArgs e)
         {
+            // Decrement checkedItems counter and check conditions for buttons visibility 
             checkedItems--; 
             exportPdf.Visible = checkedItems > 0;
             exportFile.Visible = checkedItems > 0;
@@ -244,6 +246,7 @@ namespace Image_Gallery
 
         private void TileControl_TileChecked(object sender, TileEventArgs e)
         {
+            // Increments checkedItems counter and set buttons visibility to true 
             checkedItems++; 
             exportPdf.Visible = true;
             exportFile.Visible = true;
@@ -261,6 +264,7 @@ namespace Image_Gallery
             e.Graphics.DrawLine(p, new Point(0, 43), new Point(this.Width, 43));
         }
 
+        // Save checked images as Pdf
         private void ExportPdf_Click(object sender, EventArgs e)
         {
             List<Image> images = new List<Image>(); 
@@ -280,6 +284,8 @@ namespace Image_Gallery
                 pdf.Save(saveFile.FileName); 
             }
         }
+
+        // Creates a page for each image and draws the image using DrawImage method
         private void ConvertToPdf(List<Image> images)
         {
             RectangleF rect = pdf.PageRectangle; 
@@ -298,6 +304,7 @@ namespace Image_Gallery
             }
         }
 
+        // Fetch the images using DataFetcher class when Search is clicked
         private async void Search_Click(object sender, EventArgs e)
         {
             statusStrip.Visible = true; 
@@ -305,6 +312,7 @@ namespace Image_Gallery
             AddTiles(imagesList); 
             statusStrip.Visible = false;
         }
+
 
         private void Panel_Paint(object sender, PaintEventArgs e)
         {
